@@ -1,32 +1,28 @@
 "use strict";
 
 require('dotenv').config();
+
 const express = require('express');
 const app = express();
 
-const mysql = require('mysql');
-const connection =  mysql.createConnection({
-	// host: process.env.MYSQL_HOST,
-	// port: process.env.MYSQL_PORT,
-	user: process.env.MYSQL_USER,
-	password: process.env.MYSQL_PASSWORD,
-	database: process.env.MYSQL_DATABASE
-});
+const db = require('./queries');
 
-console.log(">> etete", process.env.NODE_ENV);
-
-connection.connect((err) => {
-	if (err) {
-		console.log(`Error connecting: ${err}`);
-		return;
-	}
-	
-	console.log(`Connected as id ${connection.threadId}`);
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
 });
 
 app.get('/', (req, res) => {
-	res.send('Hello, World!');
+	res.send("Hello from server.js");
 });
+
+
+app.get('/api/assets', db.getAllAssets);
+app.get('/api/assets/:id', db.getSingleAsset);
+app.post('/api/assets', db.createAsset);
+// router.put('/api/assets/:id', db.updateAsset);
+// router.delete('/api/assets/:id', db.removeAsset);
 
 app.listen(8000, () => {
 	console.log(`Listening on port 8000!`);
