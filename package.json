@@ -1,0 +1,21 @@
+{
+  "name": "library_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "yarn && bower install && gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "DecaHub",
+  "license": "SEE LICENSE IN license.md",
+  "devDependencies": {},
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "mysql": "^2.12.0"
+  }
+}
