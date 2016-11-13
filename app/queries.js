@@ -50,8 +50,25 @@ let getSingleAsset = (req, res, next) => {
 		})
 };
 
+let assetQty = 0;
+
 let createAsset = (req, res, next) => {
-	console.log(req);
+	console.log(`Creating asset #${assetQty++} ...`);
+	console.log(req.body);
+	db.none('INSERT INTO assets' +
+	'(media, type, title, author, source, category)' +
+	'VALUES (${media}, ${type}, ${title}, ${author}, ${source}, ${category})',
+		req.body)
+		.then (() => {
+			res.status(200)
+				.json({
+					status: "success",
+					message: "Inserted ONE asset"
+				});
+		})
+		.catch((error) => {
+			return next(error);
+		})
 };
 
 module.exports = {
