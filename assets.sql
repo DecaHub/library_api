@@ -32,3 +32,5 @@ INSERT INTO assets (media, type, title, author, source, category)
 		'http://chimera.labs.oreilly.com/books/1234000001808/index.html',
 		'{"Node", "NodeJS", "Web Development", "JavaScript"}'
 	);
+
+--UPDATE assets SET media='video', type='talk', title='Node: Up and FLYING'::text, author='{"Tom Brady", "Mike Jones"}', source='http://google.com'::text WHERE id = 2;
