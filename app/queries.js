@@ -1,6 +1,7 @@
 "use strict";
 
 let promise = require("bluebird");
+let queryUtil = require("./queries.util");
 
 let options = {
 	promiseLib: promise
@@ -55,6 +56,11 @@ let assetQty = 0;
 let createAsset = (req, res, next) => {
 	console.log(`Creating asset #${assetQty++} ...`);
 	console.log(req.body);
+	
+	req.body.author = queryUtil.jsArrayToPSQLArray(req.body.author);
+	req.body.category = queryUtil.jsArrayToPSQLArray(req.body.category);
+	
+	
 	db.none('INSERT INTO assets' +
 	'(media, type, title, author, source, category)' +
 	'VALUES (${media}, ${type}, ${title}, ${author}, ${source}, ${category})',
@@ -75,7 +81,8 @@ let updateAsset = (req, res, next) => {
 	
 	console.log(`updateAsset`);
 	
-	// console.log(req.body);
+	req.body.author = queryUtil.jsArrayToPSQLArray(req.body.author);
+	req.body.category = queryUtil.jsArrayToPSQLArray(req.body.category);
 	
 	let data = req.body;
 	let id = req.params.id;
