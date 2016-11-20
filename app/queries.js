@@ -1,24 +1,9 @@
 "use strict";
 
-let promise = require("bluebird");
 let queryUtil = require("./queries.util");
+const conn = require("./db");
 
-let options = {
-	promiseLib: promise
-};
-
-const pgp = require('pg-promise')(options);
-const connectionString = `postgres://${process.env.PGUSER}:${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
-
-let cn = {
-	host: process.env.PGHOST,
-	port: process.env.PGPORT,
-	user: process.env.PGUSER,
-	password: process.env.PGPASSWORD,
-	database: process.env.PGDATABASE
-};
-
-let db = pgp(cn);
+let db = conn.connect2DB(process.env.PGDB_LIB);
 
 let getAllAssets = (req, res, next) => {
 	db.any(`SELECT * FROM assets`)
