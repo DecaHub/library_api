@@ -89,10 +89,28 @@ let updateAsset = (req, res, next) => {
 		})
 };
 
+let removeAsset = (req, res, next) => {
+	
+	let assetID = parseInt(req.params.id);
+	
+	db.result(`DELETE FROM assets WHERE id = ${assetID}`)
+		.then((result) => {
+			res.status(200)
+				.json({
+					status: "success",
+					message: `Removed ${result.rowCount} asset`
+				})
+		})
+		.catch((error) => {
+			return next(error);
+		})
+	
+};
+
 module.exports = {
 	getAllAssets: getAllAssets,
 	getSingleAsset: getSingleAsset,
 	createAsset: createAsset,
-	updateAsset: updateAsset
-	// removeAsset: removeAsset
+	updateAsset: updateAsset,
+	removeAsset: removeAsset
 };

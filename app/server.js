@@ -30,7 +30,7 @@ app.get('/api/assets', db.getAllAssets);
 app.get('/api/assets/:id', db.getSingleAsset);
 app.post('/api/assets', db.createAsset);
 app.put('/api/assets/:id', db.updateAsset);
-// router.delete('/api/assets/:id', db.removeAsset);
+app.delete('/api/assets/:id', db.removeAsset);
 
 app.listen(8000, () => {
 	console.log(`Listening on port 8000!`);
