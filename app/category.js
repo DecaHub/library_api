@@ -41,7 +41,21 @@ let storeCategory = () => {
 	}
 };
 
+let getAllAssets = (req, res, next) => {
+	db.any(`SELECT * FROM category`)
+		.then((data) => {
+			res.status(200)
+				.json({
+					status: 'success',
+					data: data,
+					message: 'Retrieved ALL categories'
+				});
+		})
+		.catch((err) => {
+			return next(err);
+		})
+};
 
-
-
-// db.query(`INSERT INTO ${process.env.PGTB_CAT} `)
+module.exports = {
+	getAllAssets: getAllAssets
+};
